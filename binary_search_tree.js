@@ -14,23 +14,23 @@ var BST = function() {
 
 		root: new Node(),
 
-		searchNode: function (key, node) {
+		binarySearch: function (key, node) {
 
       if (typeof node === 'undefined') {
-        return this.searchNode(key, this.root);
+        return this.binarySearch(key, this.root);
       }
 
-        if (node.key === null) {
-            return null; // key not found
-        }
+      if (node.key === null) {
+          return null;
+      }
 
-        if (key < node.key) {
-            return this.searchNode(node.leftChild, key);
-        } else if (key > node.key) {
-            return this.searchNode(node.rightChild, key);
-        } else { // key is equal to node key
-            return node.value;
-        }
+      if (key < node.key) {
+          return this.binarySearch(key, node.leftChild);
+      } else if (key > node.key) {
+          return this.binarySearch(key, node.rightChild);
+      } else {
+          return node.value;
+      }
 		},
 
 		addNode: function(key, value) {
@@ -216,7 +216,7 @@ NYJStartingDefense.addNode(25, "Calvin Pryor");
 NYJStartingDefense.addNode(21, "Marcus Gilchrist");
 NYJStartingDefense.addNode(31, "Antonio Cromartie");
 
-console.log("Searching for 52...", NYJStartingDefense.searchNode(52));
+console.log("Searching for 52...", NYJStartingDefense.binarySearch(52));
 
 
 //                   [62]
