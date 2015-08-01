@@ -10,6 +10,18 @@ var BST = function() {
 		};
 	};
 
+	var forEachNode = function (node, callback) {
+		  if (node !== null) {
+        callback(node);
+        forEachNode(node.leftChild, callback);
+        forEachNode(node.rightChild, callback);
+      }
+	};
+
+	var defaultCallback = function (node) {
+    console.log("KEY = " + node.key + ": VALUE = " + node.value);
+  };
+
 	return {
 
 		root: new Node(),
@@ -160,25 +172,11 @@ var BST = function() {
 			}
 		},
 
-		eachNode: function(node, callback) {
-
-      if (typeof callback === "undefined") {
-        callback = function (node) {
-          console.log("KEY = " + node.key + ": VALUE = " + node.value);
-        };
+		eachNode: function(callback) {
+	  	if (typeof callback === "undefined") {
+          callback = defaultCallback;
       }
-
-      if (typeof node === "undefined") {
-        return this.eachNode(this.root, callback);
-      }
-
-      if (node !== null) {
-        this.eachNode(node.leftChild, callback);
-        callback(node);
-        this.eachNode(node.rightChild, callback);
-      }
-
-			return true;
+      return forEachNode(this.root, callback);
 		},
 
 
@@ -216,9 +214,7 @@ NYJStartingDefense.addNode(25, "Calvin Pryor");
 NYJStartingDefense.addNode(21, "Marcus Gilchrist");
 NYJStartingDefense.addNode(31, "Antonio Cromartie");
 
-console.log("Searching for 52...", NYJStartingDefense.binarySearch(52));
-
-
+// Tree output diagram:
 //                   [62]
 //             [56]       [96]
 //         [52]       [94]    [98]
@@ -226,6 +222,9 @@ console.log("Searching for 52...", NYJStartingDefense.binarySearch(52));
 // [21]    [25]
 //             [31]
 
-
+console.log(NYJStartingDefense.eachNode(function (node) {
+	console.log('Key: ', node.key, ' Parent: ', node.parent);
+}));
+console.log("Searching for 52...", NYJStartingDefense.binarySearch(52));
 console.log("min key: ", NYJStartingDefense.minNode());
 console.log("max key: ", NYJStartingDefense.maxNode());
