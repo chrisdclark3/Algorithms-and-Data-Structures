@@ -27,12 +27,12 @@ var BST = function() {
 		root: new Node(),
 
 		binarySearch: function (key, node) {
-
+			console.log("KEY in binary search: ", key, "NODE in binary search: ", node);
       if (typeof node === 'undefined') {
         return this.binarySearch(key, this.root);
       }
 
-      if (node.key === null) {
+      if (node === null) {
           return null;
       }
 
@@ -41,6 +41,7 @@ var BST = function() {
       } else if (key > node.key) {
           return this.binarySearch(key, node.rightChild);
       } else {
+      	console.log("found: ", node.value);
           return node.value;
       }
 		},
@@ -49,7 +50,7 @@ var BST = function() {
 
 			if (isNaN(key)) {
 				return undefined;
-			};
+			}
 
 			if (this.root.key === null) {
 				this.root.key = key;
@@ -86,9 +87,7 @@ var BST = function() {
 		},
 
 		destoryNode: function(key) {
-			if (isNaN(key)) {
-				return undefined;
-			};
+
 			var found = false,
 				current = this.root,
 				parent,
@@ -170,6 +169,7 @@ var BST = function() {
 					}
 				}
 			}
+			return current.value;
 		},
 
 		eachNode: function(callback) {
@@ -223,8 +223,11 @@ NYJStartingDefense.addNode(31, "Antonio Cromartie");
 //             [31]
 
 console.log(NYJStartingDefense.eachNode(function (node) {
-	console.log('Key: ', node.key, ' Parent: ', node.parent);
+	if (node.key !== NYJStartingDefense.root.key) {
+		console.log('Key: ', node.key, ' Parent: ', node.parent.key);
+	}
 }));
 console.log("Searching for 52...", NYJStartingDefense.binarySearch(52));
+console.log("Removing 24...", NYJStartingDefense.destoryNode(24));
 console.log("min key: ", NYJStartingDefense.minNode());
 console.log("max key: ", NYJStartingDefense.maxNode());
