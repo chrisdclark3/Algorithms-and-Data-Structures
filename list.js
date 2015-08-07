@@ -23,7 +23,7 @@ ADT List: methods and properties
 */
 
 function append (el) {
-	this.data[this.listSize++] = el;
+	this.data[++this.listSize] = el;
 }
 
 function find (el) {
@@ -39,7 +39,7 @@ function remove (el) {
 	var foundIdx = this.find(el);
 	if (foundIdx != -1) {
 		this.data.splice(foundIdx, 1);
-		this.listSize--;
+		--this.listSize;
 		return true;
 	}
 	return false;
@@ -57,7 +57,7 @@ function insert(el, prev) {
 	var insertPosition = this.find(prev);
 	if (insertPosition != -1) {
 		this.data.splice(insertPosition + 1, 0, el);
-		this.listSize++;
+		++this.listSize;
 		return true;
 	}
 	return false;
@@ -98,13 +98,13 @@ function end() {
 
 function prev() {
 	if (this.pos > 0) {
-		this.pos--;
+		--this.pos;
 	}
 }
 
 function nextEl() {
 	if (this.pos < this.listSize -1) {
-		this.pos++;
+		++this.pos;
 	}
 }
 
